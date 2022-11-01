@@ -16,24 +16,26 @@ fn main() {
   
 
 
-    fn set_all_values(a: i32, b: i32) {
-        // hacer un vector y modificar su valor en el iter
-            let mut all_balls:Vec<Value> = {_ball: a, _position: b};
+    fn set_all_values(a: i32, b: i32)  -> Value {
+            let mut balls = Value {_ball: a, _position: b};
             
             for val in 1..16 { 
                 let mut rng = rand::thread_rng();
                 let random_bool = rng.gen::<bool>();
 
-                // if random_bool == true { all_balls.push(Value {_ball: a, _position: b + 1})} else { all_balls.push(Value {_ball: a, _position: b + 1}) };
+                if random_bool == true { balls._position = balls._position + 1 } else { balls._position = balls._position - 1 };
             }
 
-
+            return balls
     }
 
+    let mut response: Vec<Value> = Vec::new();
 
     for val in v1_iter {
-        set_all_values(val._ball, val._position);
+        let balls_with_position = set_all_values(val._ball, val._position);
+
+        response.push(balls_with_position)
     }
 
-    println!("{:?}", v1_iter);
+    println!("{:?}", response);
 }
